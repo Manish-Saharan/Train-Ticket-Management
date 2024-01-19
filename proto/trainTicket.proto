@@ -1,0 +1,30 @@
+syntax="proto3";
+
+option go_package= "./proto";
+
+package ticketManage;
+
+message User {
+  string first_name = 1;
+  string last_name = 2;
+  string email = 3;
+}
+
+message Receipt {
+  string from = 1;
+  string to = 2;
+  User user = 3;
+  int32 price_paid = 4;
+  tSection section = 5;
+}
+message tSection{
+  string sec=1; 
+}
+service ticketService{
+    rpc PurchaseTicket (Receipt) returns (Receipt);
+    rpc GetReceipt (User) returns (Receipt);
+    rpc GetUsersBySection (tSection) returns (stream Receipt);
+    rpc RemoveUser (User) returns (Receipt);
+    rpc ModifySeat (Receipt) returns (Receipt);
+    
+}
